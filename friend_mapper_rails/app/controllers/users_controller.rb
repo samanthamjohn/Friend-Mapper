@@ -24,20 +24,18 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.xml
   def new
-    @user = User.new
+    @facebook_url = FacebookUrl
 	if (params[:code]) 
-	  access_token = FacebookAuth.get_access_token(params[:code])
-
-	  #f = Facebook.new(access_token)	
-	  @auth_text = access_token#"Successfuly authorized!"
+	  token_info = FacebookAuth.get_access_token_info(params[:code])
+      u = User.add_facebook(token_info)
+	  @auth_text = u.inspect 
 	else
-	  @facebook_url = FacebookAuth.url_for_oauth_code(:permissions => Permissions)
-	  @facebook_text = "Authorize Friend Mapper"
+      redirect_to @facebook_url
 	end
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @user }
-    end
+    #respond_to do |format|
+     # format.html # new.html.erb
+      #format.xml  { render :xml => @user }
+    #end
   end
 
   # GET /users/1/edit

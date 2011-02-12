@@ -8,6 +8,9 @@ gem 'rails', '3.0.3'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'mysql', :require => 'mysql'
 gem 'koala' 
+gem 'delayed_job'
+gem 'heroku'
+gem 'activerecord-import', '0.2.2'
 # Use unicorn as the web server
 # gem 'unicorn'
 
