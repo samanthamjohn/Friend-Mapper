@@ -1,4 +1,6 @@
 FriendMapperRails::Application.routes.draw do
+  resources :locations
+
   resources :friendships
 
   resources :users

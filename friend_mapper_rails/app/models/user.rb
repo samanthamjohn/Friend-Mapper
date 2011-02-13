@@ -4,11 +4,8 @@ class User < ActiveRecord::Base
 
   def self.add_facebook(token_info)
     graph = Koala::Facebook::GraphAPI.new(token_info['access_token'])
-    rest = Koala::Facebook::RestAPI.new(token_info['access_token'])
     me = graph.get_object('me')
     @user = User.where("fb_id" => me["id"].to_s).first || User.new
-    me["uid"] = me["id"]
-    me["current_location"] = me["location"]
     @user.add_facebook(me)
     @user.fb_token = token_info['access_token']
     @user.token_expires = Time.now + token_info['expires'].to_i
@@ -22,23 +19,19 @@ class User < ActiveRecord::Base
   def add_facebook(me)
     self.first_name = me["first_name"] 
     self.last_name = me["last_name"]
-    self.fb_id = me["uid"]
-    self.location = me["current_location"]["name"] if me["current_location"]
+    self.fb_id = me["id"]
+    self.location = me["location"]["name"] if me["location"]
   end
 
-  def save_friend_locations(graph, rest)
-    start = Time.now
+  def save_friend_locations
+    rest = Koala::Facebook::RestAPI.new(self.fb_token)
     friend_locales = rest.fql_query("SELECT uid, first_name, last_name, current_location FROM user WHERE uid IN (select uid2 from friend where uid1=#{self.fb_id} )")
-    new_friends = []
-    new_friendships = []
     locations = Hash.new{|k,v| k[v] = 0}
     friend_locales.each do |friend| 
       location = friend["current_location"]["name"] if friend["current_location"]
       locations[location] += 1 if location
     end
     locations = locations.sort{|a,b| b[1] <=>a[1]}
-    #User.remove_heroku_worker
-    return locations[0..19]
   end
 
 

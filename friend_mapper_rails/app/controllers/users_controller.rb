@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   # GET /users/1.xml
   def show
     @user = User.find(params[:id])
-
+    @address_list = @user.save_friend_locations
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @user }
@@ -27,12 +27,15 @@ class UsersController < ApplicationController
     @facebook_url = FacebookUrl
 	if (params[:code]) 
 	  token_info = FacebookAuth.get_access_token_info(params[:code])
-      u = User.add_facebook(token_info)
-	  @auth_text = u.inspect 
+      @user = User.add_facebook(token_info)
+      redirect_to show
 	else
+      respond_to do |format|
+        format.html { render :action => "show", :params => @user }
+      end
       redirect_to @facebook_url
 	end
-    #respond_to do |format|
+    #
      # format.html # new.html.erb
       #format.xml  { render :xml => @user }
     #end

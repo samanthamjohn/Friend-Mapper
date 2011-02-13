@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110210175953) do
+ActiveRecord::Schema.define(:version => 20110213171913) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(:version => 20110210175953) do
   end
 
   add_index "friendships", ["user_id"], :name => "user_id_ix"
+
+  create_table "locations", :force => true do |t|
+    t.float    "latitude"
+    t.string   "name",       :limit => 100, :null => false
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "country",    :limit => 100
+    t.string   "state",      :limit => 40
+    t.string   "city",       :limit => 100
+  end
+
+  add_index "locations", ["name"], :name => "name_ix", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "fb_id",         :limit => 40,  :null => false
