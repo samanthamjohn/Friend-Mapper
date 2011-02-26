@@ -1,0 +1,15 @@
+<h3><%= @location %></h3>
+
+<ul>
+  <table id="infowindow" >
+	<%@names.each do |name_info|%>
+      <% name_array = name_info.split(',') %>
+      <% url = "http://www.facebook.com/profile.php?id=#{name_array[0]}"%>
+      <% name = name_array[1].gsub('_', ' ')%>
+      <tr>
+        <td><%= image_tag(name_array[2])%></td>
+        <td><a href=<%=raw(url)%> TARGET="_top"><%=name%></a></td>
+      </tr>
+	<%end%>
+  </table>
+</ul>
