@@ -1,2 +1,4 @@
 *.swp
 *.pid
+.DS_Store
+*.csv

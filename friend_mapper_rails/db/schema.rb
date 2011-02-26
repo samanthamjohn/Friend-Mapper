@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20110213171913) do
     t.datetime "token_expires"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "location_id"
   end
 
   add_index "users", ["fb_id"], :name => "fb_id_ix", :unique => true

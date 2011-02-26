@@ -6,11 +6,20 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
-gem 'mysql', :require => 'mysql'
-gem 'koala' 
+gem 'mysql'
+gem 'koala', :git => "git://github.com/arsduo/koala.git"
 gem 'delayed_job'
 gem 'heroku'
 gem 'activerecord-import', '0.2.2'
+gem 'csvscan'
+gem 'autotest'
+gem "webrat"
+gem "rspec-rails",        ">= 2.0.0.beta.10", :git => "git://github.com/rspec/rspec-rails.git"
+gem "rspec",              ">= 2.0.0.beta.10", :git => "git://github.com/rspec/rspec.git"
+gem "rspec-core",         ">= 2.0.0.beta.10", :git => "git://github.com/rspec/rspec-core.git"
+gem "rspec-expectations", ">= 2.0.0.beta.10", :git => "git://github.com/rspec/rspec-expectations.git"
+gem "rspec-mocks",        ">= 2.0.0.beta.10", :git => "git://github.com/rspec/rspec-mocks.git"
+gem 'spork', '~> 0.9.0.rc'
 # Use unicorn as the web server
 # gem 'unicorn'
 

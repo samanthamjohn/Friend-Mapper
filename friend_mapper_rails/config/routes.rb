@@ -2,9 +2,12 @@ FriendMapperRails::Application.routes.draw do
   resources :locations
 
   resources :friendships
-
+  get "users/sample_ajax"
   resources :users
-
+  match 'publish_story' => 'users#publish_story' 
+  #get 'users/publish_story'
+   # This route can be invoked with publish_url(:id => user.id)
+   
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -20,15 +23,16 @@ FriendMapperRails::Application.routes.draw do
   #   resources :products
 
   # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
+    #resources :users do
+      # member do
+      #   post "sample_ajax"
+        # get 'short'
+         #post 'toggle'
+     #  end
+  
+    #   collection do
+         #get 'sold'
+   #    end
   #   end
 
   # Sample resource route with sub-resources:
@@ -54,8 +58,8 @@ FriendMapperRails::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "users#new"
-
+  root :to => "users#create"
+  
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
